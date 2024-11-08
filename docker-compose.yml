@@ -1,0 +1,26 @@
+version: "1.0"
+
+services:
+  app:
+    build: .
+    container_name: devs-do-rn-app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: devs-do-rn-db
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: devs_do_rn
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+volumes:
+  dbdata:
